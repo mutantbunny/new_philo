@@ -6,7 +6,7 @@
 /*   By: gmachado <gmachado@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 05:03:09 by gmachado          #+#    #+#             */
-/*   Updated: 2023/06/25 07:47:38 by gmachado         ###   ########.fr       */
+/*   Updated: 2023/06/25 09:44:07 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,11 @@ static t_bool	eat(t_params *pars, t_philo *philo)
 		pthread_mutex_unlock(philo->second_fork);
 		return (TRUE);
 	}
-	print_state(pars, philo->num, ST_GOT_FORK);
-	print_state(pars, philo->num, ST_GOT_FORK);
+	print_state(pars, philo->number, ST_GOT_FORK);
+	print_state(pars, philo->number, ST_GOT_FORK);
 	set_last_meal_timestamp(philo);
-	print_state(pars, philo->num, ST_EATING);
+	print_state(pars, philo->number, ST_EATING);
+	sleep_in_ms(pars->time_to_eat);
 	update_remaining_meals(philo);
 	pthread_mutex_unlock(philo->first_fork);
 	pthread_mutex_unlock(philo->second_fork);
@@ -60,8 +61,8 @@ static t_bool	go_sleep(t_params *pars, t_philo *philo)
 {
 	if (get_dinner_over(pars))
 		return (TRUE);
-	print_state(pars, philo->num, ST_SLEEPING);
-	usleep(pars->time_to_sleep * 1000);
+	print_state(pars, philo->number, ST_SLEEPING);
+	sleep_in_ms(pars->time_to_sleep);
 	return (FALSE);
 }
 
@@ -69,13 +70,13 @@ static t_bool	think(t_params *pars, t_philo *philo)
 {
 	if (get_dinner_over(pars))
 		return (TRUE);
-	print_state(pars, philo->num, ST_THINKING);
+	print_state(pars, philo->number, ST_THINKING);
 	return (FALSE);
 }
 
 static t_bool	eat_alone(t_params *pars, t_philo *philo)
 {
-	print_state(pars, philo->num, ST_GOT_FORK);
-	usleep(pars->time_to_die * 2000);
+	print_state(pars, philo->number, ST_GOT_FORK);
+	sleep_in_ms(pars->time_to_die * 2);
 	return (TRUE);
 }

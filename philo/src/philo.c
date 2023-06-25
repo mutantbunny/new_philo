@@ -6,7 +6,7 @@
 /*   By: gmachado <gmachado@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 22:12:16 by gmachado          #+#    #+#             */
-/*   Updated: 2023/06/25 07:57:46 by gmachado         ###   ########.fr       */
+/*   Updated: 2023/06/25 08:19:47 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,21 @@ int	main(int argc, char *argv[])
 	t_error		err;
 
 	if (get_args(&pars, argc, argv))
-		return (print_usage_msg(char *name));
+		return (print_usage_msg(argv[0]));
 	err = init_parameters(&pars);
 	if (err)
-		return (handle_error(err, pars));
+		return (handle_error(&pars, err));
 	err = init_philos(&pars);
 	if (err)
-		return (handle_error(err, pars));
+		return (handle_error(&pars, err));
 	err = init_threads(&pars);
 	if (err)
-		return (handle_error(err, pars));
+		return (handle_error(&pars, err));
 	idx = 0;
-	while (idx < pars->num_philos)
+	while (idx < pars.num_philos)
 		pthread_join(pars.philos[idx++].thread, NULL);
 	pthread_join(pars.check_death_thread, NULL);
-	return (cleanup(pars));
+	return (cleanup(&pars));
 }
 
 static t_error	print_usage_msg(char *name)
@@ -54,15 +54,15 @@ static t_error	init_threads(t_params *pars)
 	int	idx;
 
 	idx = 0;
-	pars.start_ts = timestamp_in_ms();
+	pars->start_ts = timestamp_in_ms();
 	while (idx < pars->num_philos)
 	{
-		if (pthread_create((pars->philo + idx)->thread, NULL,
-				philo_handler, pars->philo + idx))
+		if (pthread_create(&(pars->philos + idx)->thread, NULL,
+				philo_handler, pars->philos + idx))
 			return (ERR_THREAD);
 		++idx;
 	}
-	if (pthread_create(pars->check_death_thread, NULL,
+	if (pthread_create(&pars->check_death_thread, NULL,
 			check_death_handler, pars))
 		return (ERR_THREAD);
 	return (OK);

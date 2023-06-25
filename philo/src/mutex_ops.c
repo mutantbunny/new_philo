@@ -6,7 +6,7 @@
 /*   By: gmachado <gmachado@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 04:30:27 by gmachado          #+#    #+#             */
-/*   Updated: 2023/06/25 07:43:53 by gmachado         ###   ########.fr       */
+/*   Updated: 2023/06/25 09:46:24 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,16 @@ void	end_dinner(t_params *pars)
 {
 	pthread_mutex_lock(&pars->dinner_over_mtx);
 	pars->dinner_over = TRUE;
-	pthread_mutex_unlock(&philo->dinner_over_mtx);
+	pthread_mutex_unlock(&pars->dinner_over_mtx);
 }
 
 t_bool	get_dinner_over(t_params *pars)
 {
 	t_bool	result;
 
-	pthread_mutex_lock(pars->dinner_over_mtx);
+	pthread_mutex_lock(&pars->dinner_over_mtx);
 	result = pars->dinner_over;
-	pthread_mutex_unlock(pars->dinner_over_mtx);
+	pthread_mutex_unlock(&pars->dinner_over_mtx);
 	return (result);
 }
 
@@ -62,8 +62,8 @@ long long	get_last_meal_timestamp(t_philo *philo)
 {
 	long long	result;
 
-	pthread_mutex_lock(philo->last_meal_mtx);
+	pthread_mutex_lock(&philo->last_meal_mtx);
 	result = philo->last_meal_ts;
-	pthread_mutex_unlock(philo->last_meal_mtx);
+	pthread_mutex_unlock(&philo->last_meal_mtx);
 	return (result);
 }

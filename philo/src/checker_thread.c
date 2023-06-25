@@ -6,7 +6,7 @@
 /*   By: gmachado <gmachado@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 05:04:13 by gmachado          #+#    #+#             */
-/*   Updated: 2023/06/25 07:33:52 by gmachado         ###   ########.fr       */
+/*   Updated: 2023/06/25 08:01:34 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ void	*check_death_handler(void *arg)
 		idx = 0;
 		while (idx < num_philos)
 		{
-			if (timestamp_in_ms() - get_last_meal_timestamp() > time_to_die)
+			if (timestamp_in_ms()
+				- get_last_meal_timestamp(pars->philos + idx) > time_to_die)
 			{
-				end_dinner();
+				end_dinner(pars);
 				print_death(pars, idx);
 				return (NULL);
 			}
@@ -44,10 +45,10 @@ void	*check_death_handler(void *arg)
 
 static void	print_death(t_params *pars, int idx)
 {
-	pthread_mutex_lock(&pars->print_mutex);
+	pthread_mutex_lock(&pars->print_mtx);
 	ft_putnbr(timestamp_in_ms() - pars->start_ts);
 	write(1, " ", 1);
 	ft_putnbr((long long)idx + 1);
 	write(1, " died\n", 6);
-	pthread_mutex_unlock(&pars->print_mutex);
+	pthread_mutex_unlock(&pars->print_mtx);
 }

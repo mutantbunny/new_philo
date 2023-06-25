@@ -6,13 +6,13 @@
 /*   By: gmachado <gmachado@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 23:13:34 by gmachado          #+#    #+#             */
-/*   Updated: 2023/06/25 07:55:33 by gmachado         ###   ########.fr       */
+/*   Updated: 2023/06/25 09:15:53 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_error	get_args(t_param *pars, int argc, char **argv)
+t_error	get_args(t_params *pars, int argc, char **argv)
 {
 	if (argc < 5 || argc > 6)
 		return (ERR_PARAMS);
@@ -27,7 +27,7 @@ t_error	get_args(t_param *pars, int argc, char **argv)
 	return (OK);
 }
 
-t_error	init_parameters(t_param *pars)
+t_error	init_parameters(t_params *pars)
 {
 	t_error	err;
 
@@ -37,7 +37,7 @@ t_error	init_parameters(t_param *pars)
 		|| pthread_mutex_init(&pars->dinner_over_mtx, NULL)
 		|| pthread_mutex_init(&pars->must_eat_mtx, NULL))
 		return (ERR_MUTEX);
-	err = init_forks(pars);
+	err = init_forks(pars->num_philos, &(pars->forks));
 	if (err)
 		return (err);
 	pars->dinner_over = FALSE;
@@ -45,15 +45,17 @@ t_error	init_parameters(t_param *pars)
 	return (OK);
 }
 
-t_error	init_forks(t_params *pars)
+t_error	init_forks(int num_forks, t_fork **forks)
 {
-	pars->forks = malloc(num_forks * sizeof(**forks));
-	if (pars->forks == NULL)
+	int	idx;
+
+	*forks = malloc(num_forks * sizeof(**forks));
+	if (*forks == NULL)
 		return (ERR_ALLOC);
 	idx = 0;
 	while (idx < num_forks)
 	{
-		if (pthread_mutex_init(pars->forks + idx, NULL))
+		if (pthread_mutex_init(*forks + idx, NULL))
 			return (ERR_MUTEX);
 		++idx;
 	}
@@ -65,7 +67,7 @@ t_error	init_philos(t_params *pars)
 	int		idx;
 	t_philo	*philo;
 
-	pars->philos = malloc(pars->num_philos * sizeof(**philos));
+	pars->philos = malloc(pars->num_philos * sizeof(*(pars->philos)));
 	if (pars->philos == NULL)
 		return (ERR_ALLOC);
 	idx = 0;
@@ -75,11 +77,11 @@ t_error	init_philos(t_params *pars)
 		if (pthread_mutex_init(&philo->last_meal_mtx, NULL))
 			return (ERR_MUTEX);
 		philo->number = idx;
-		philo->first_fork = first_fork(pars, idx);
-		philo->second_fork = second_fork(pars, idx);
 		philo->pars = pars;
+		philo->first_fork = first_fork(philo);
+		philo->second_fork = second_fork(philo);
 		philo->remaining_meals = pars->num_meals;
-		set_last_meal_ts(philo);
+		set_last_meal_timestamp(philo);
 		++idx;
 	}
 	return (OK);

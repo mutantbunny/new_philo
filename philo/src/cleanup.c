@@ -6,13 +6,13 @@
 /*   By: gmachado <gmachado@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 23:17:38 by gmachado          #+#    #+#             */
-/*   Updated: 2023/06/25 05:03:22 by gmachado         ###   ########.fr       */
+/*   Updated: 2023/06/25 08:16:32 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_error	handle_error(t_error err, t_params *pars)
+t_error	handle_error(t_params *pars, t_error err)
 {
 	const char	*err_str[] = {
 		"OK",
@@ -31,7 +31,7 @@ t_error	handle_error(t_error err, t_params *pars)
 
 t_error	cleanup(t_params *pars)
 {
-	unsigned int	idx;
+	int	idx;
 
 	pthread_mutex_destroy(&pars->print_mtx);
 	pthread_mutex_destroy(&pars->dinner_over_mtx);

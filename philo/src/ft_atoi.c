@@ -6,7 +6,7 @@
 /*   By: gmachado <gmachado@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 22:10:33 by gmachado          #+#    #+#             */
-/*   Updated: 2023/06/25 07:57:03 by gmachado         ###   ########.fr       */
+/*   Updated: 2023/06/25 08:08:11 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,14 @@ t_error	checked_atoi(const char *nptr, int *result)
 
 	if (nptr == NULL)
 		return (ERR_PARAMS);
-	ptr = nptr;
+	ptr = (char *)nptr;
 	while (*ptr != '\0')
 	{
 		if ((*ptr < '0' || *ptr > '9') && *ptr != '+')
 			return (ERR_PARAMS);
 		++ptr;
 	}
-	*result = ft_atoi(*nptr);
+	*result = ft_atoi(nptr);
 	if (*result < 1)
 		return (ERR_PARAMS);
 	return (OK);
