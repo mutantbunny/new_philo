@@ -3,7 +3,7 @@ CFLAGS = -Wall -Wextra -Werror
 LIBFLAGS = -lpthread
 RM = rm -rf
 
-MANDATORY_DIR = ./
+MANDATORY_DIR = .
 NAME = ${MANDATORY_DIR}/philo
 INC_DIR = ${MANDATORY_DIR}/inc
 INC_FILES = ${INC_DIR}/philo.h

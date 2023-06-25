@@ -74,8 +74,6 @@ t_error	init_philos(t_params *pars)
 	while (idx < pars->num_philos)
 	{
 		philo = pars->philos + idx;
-		if (pthread_mutex_init(&philo->last_meal_mtx, NULL))
-			return (ERR_MUTEX);
 		philo->number = idx;
 		philo->pars = pars;
 		philo->first_fork = first_fork(philo);

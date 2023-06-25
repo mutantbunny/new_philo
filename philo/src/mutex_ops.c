@@ -3,40 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   mutex_ops.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmachado <gmachado@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 04:30:27 by gmachado          #+#    #+#             */
-/*   Updated: 2023/06/25 09:46:24 by gmachado         ###   ########.fr       */
+/*   Updated: 2023/06/25 17:23:10 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	set_last_meal_timestamp(t_philo *philo)
-{
-	pthread_mutex_lock(&philo->last_meal_mtx);
-	philo->last_meal_ts = timestamp_in_ms();
-	pthread_mutex_unlock(&philo->last_meal_mtx);
-}
-
-void	update_remaining_meals(t_philo *philo)
-{
-	t_bool		all_finished;
+void set_last_meal_timestamp(t_philo *philo) {
 	t_params	*pars;
+	t_bool		all_finished;
 
 	pars = philo->pars;
-	if (philo->remaining_meals < 0)
-		return ;
-	if (philo->remaining_meals > 0)
-	{
-		philo->remaining_meals--;
-		return ;
-	}
 	pthread_mutex_lock(&pars->must_eat_mtx);
+	philo->last_meal_ts = timestamp_in_ms();
 	if (pars->num_must_eat)
 		pars->num_must_eat--;
 	all_finished = (pars->num_must_eat == 0);
 	pthread_mutex_unlock(&pars->must_eat_mtx);
+	if (philo->remaining_meals < 0)
+		return;
+	if (philo->remaining_meals > 0)
+	{
+		philo->remaining_meals--;
+		return;
+	}
 	if (all_finished)
 		end_dinner(pars);
 }
@@ -62,8 +55,8 @@ long long	get_last_meal_timestamp(t_philo *philo)
 {
 	long long	result;
 
-	pthread_mutex_lock(&philo->last_meal_mtx);
+	pthread_mutex_lock(&philo->pars->must_eat_mtx);
 	result = philo->last_meal_ts;
-	pthread_mutex_unlock(&philo->last_meal_mtx);
+	pthread_mutex_unlock(&philo->pars->must_eat_mtx);
 	return (result);
 }

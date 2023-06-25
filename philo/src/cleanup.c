@@ -31,13 +31,9 @@ t_error	handle_error(t_params *pars, t_error err)
 
 t_error	cleanup(t_params *pars)
 {
-	int	idx;
-
 	pthread_mutex_destroy(&pars->print_mtx);
 	pthread_mutex_destroy(&pars->dinner_over_mtx);
-	idx = 0;
-	while (idx < pars->num_philos)
-		pthread_mutex_destroy(&(pars->philos + idx++)->last_meal_mtx);
+	pthread_mutex_destroy(&pars->must_eat_mtx);
 	free(pars->philos);
 	free(pars->forks);
 	return (OK);

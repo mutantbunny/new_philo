@@ -77,7 +77,6 @@ struct s_philo
 	t_fork			*first_fork;
 	t_fork			*second_fork;
 	t_params		*pars;
-	pthread_mutex_t	last_meal_mtx;
 	pthread_t		thread;
 };
 
@@ -102,7 +101,6 @@ void		end_dinner(t_params *pars);
 t_bool		get_dinner_over(t_params *pars);
 long long	get_last_meal_timestamp(t_philo *philo);
 void		set_last_meal_timestamp(t_philo *philo);
-void		update_remaining_meals(t_philo *philo);
 
 // philo_thread.c
 void		*philo_handler(void *arg);
