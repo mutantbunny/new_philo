@@ -24,9 +24,18 @@ void	*philo_handler(void *arg)
 
 	philo = arg;
 	pars = philo->pars;
+	if (pars->num_philos == 1)
+	{
+		eat_alone(pars, philo);
+		return (NULL);
+	}
 	while (TRUE)
 	{
-		if (eat(pars, philo) || go_sleep(pars, philo) || think(pars, philo))
+		if (eat(pars, philo))
+			return (NULL);
+		if (go_sleep(pars, philo))
+			return (NULL);
+		if (think(pars, philo))
 			return (NULL);
 	}
 	return (NULL);
@@ -36,8 +45,6 @@ static t_bool	eat(t_params *pars, t_philo *philo)
 {
 	if (get_dinner_over(pars))
 		return (TRUE);
-	if (pars->num_philos == 1)
-		return (eat_alone(pars, philo));
 	pthread_mutex_lock(philo->first_fork);
 	pthread_mutex_lock(philo->second_fork);
 	if (get_dinner_over(pars))
@@ -68,10 +75,21 @@ static t_bool	go_sleep(t_params *pars, t_philo *philo)
 
 static t_bool	think(t_params *pars, t_philo *philo)
 {
+	// long long	time_to_think;
+
+	// time_to_think = (pars->time_to_die
+	// 	- (timestamp_in_ms() - get_last_meal_timestamp(philo))
+	// 	- pars->time_to_eat) / 2;
+	// if (time_to_think > 500)
+	// 	time_to_think = 200;
+	// else
+	// 	time_to_think = 1;
 	if (get_dinner_over(pars))
 		return (TRUE);
 	print_state(pars, philo->number, ST_THINKING);
+	// sleep_in_ms(time_to_think);
 	return (FALSE);
+
 }
 
 static t_bool	eat_alone(t_params *pars, t_philo *philo)

@@ -6,7 +6,7 @@
 /*   By: gmachado <gmachado@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 05:04:13 by gmachado          #+#    #+#             */
-/*   Updated: 2023/06/25 08:01:34 by gmachado         ###   ########.fr       */
+/*   Updated: 2023/06/25 20:35:31 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,18 @@ void	*check_death_handler(void *arg)
 				return (NULL);
 			}
 			++idx;
+			sleep_in_ms(5);
 		}
-		usleep(100);
 	}
 	return (NULL);
 }
 
 static void	print_death(t_params *pars, int idx)
 {
+	long long ts;
+
+	ts = timestamp_in_ms() - pars->start_ts;
 	pthread_mutex_lock(&pars->print_mtx);
-	ft_putnbr(timestamp_in_ms() - pars->start_ts);
-	write(1, " ", 1);
-	ft_putnbr((long long)idx + 1);
-	write(1, " died\n", 6);
+	printf("%lld %d died\n", ts, idx + 1);
 	pthread_mutex_unlock(&pars->print_mtx);
 }

@@ -36,36 +36,21 @@ t_fork	*second_fork(t_philo *philo)
 
 void	print_state(t_params *pars, int idx, t_state state)
 {
+	long long ts;
+
+	ts = timestamp_in_ms() - pars->start_ts;
 	pthread_mutex_lock(&pars->print_mtx);
 	if (get_dinner_over(pars) == FALSE)
 	{
-		ft_putnbr(timestamp_in_ms() - pars->start_ts);
-		write(1, " ", 1);
-		ft_putnbr((long long)idx + 1);
 		if (state == ST_THINKING)
-			write(1, " is thinking\n", 13);
+			printf("%lld %d is thinking\n", ts, idx + 1);
 		else if (state == ST_GOT_FORK)
-			write(1, " has taken a fork\n", 18);
+			printf("%lld %d has taken a fork\n", ts, idx + 1);
 		else if (state == ST_EATING)
-			write(1, " is eating\n", 11);
+			printf("%lld %d is eating\n", ts, idx + 1);
 		else if (state == ST_SLEEPING)
-			write(1, " is sleeping\n", 13);
+			printf("%lld %d is sleeping\n", ts, idx + 1);
 	}
 	pthread_mutex_unlock(&pars->print_mtx);
 }
 
-void	ft_putnbr(long long nbr)
-{
-	char	digit;
-
-	if (nbr < 0)
-		return ;
-	if (nbr < 10)
-	{
-		digit = (unsigned char)nbr + '0';
-		write(1, &digit, 1);
-		return ;
-	}
-	ft_putnbr(nbr / 10);
-	ft_putnbr(nbr % 10);
-}

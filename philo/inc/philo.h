@@ -113,7 +113,6 @@ long long	timestamp_in_ms(void);
 
 // utils.c
 t_fork		*first_fork(t_philo *philo);
-void		ft_putnbr(long long nbr);
 void		print_state(t_params *pars, int idx, t_state state);
 t_fork		*second_fork(t_philo *philo);
 

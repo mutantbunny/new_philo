@@ -80,7 +80,7 @@ t_error	init_philos(t_params *pars)
 		philo->pars = pars;
 		philo->first_fork = first_fork(philo);
 		philo->second_fork = second_fork(philo);
-		philo->remaining_meals = pars->num_meals;
+		philo->remaining_meals = pars->num_meals - 1;
 		set_last_meal_timestamp(philo);
 		++idx;
 	}
