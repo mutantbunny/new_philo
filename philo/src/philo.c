@@ -6,7 +6,7 @@
 /*   By: gmachado <gmachado@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 22:12:16 by gmachado          #+#    #+#             */
-/*   Updated: 2023/06/25 05:02:31 by gmachado         ###   ########.fr       */
+/*   Updated: 2023/06/25 07:19:08 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ static t_error	init_threads(t_params *pars)
 	pars.start_ts = timestamp_in_ms();
 	while (idx < pars->num_philos)
 	{
-		if (pthread_create(pars->philo[idx]->thread, NULL,
+		if (pthread_create((pars->philo + idx)->thread, NULL,
 			philo_handler, pars->philo + idx))
 			return (ERR_THREAD);
 		++idx;
 	}
-	if (pthread_create(pars->monitor_thread, NULL,
-		monitor_handler, &pars))
+	if (pthread_create(pars->check_death_thread, NULL,
+		check_death_handler, pars))
 		return (ERR_THREAD);
 	return (OK);
 }

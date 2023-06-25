@@ -3,12 +3,13 @@ CFLAGS = -Wall -Wextra -Werror
 LIBFLAGS = -lpthread
 RM = rm -rf
 
-MANDATORY_DIR = ./philo
+MANDATORY_DIR = ./
 NAME = ${MANDATORY_DIR}/philo
-INC_DIR = ${MANDATORY_DIR}
+INC_DIR = ${MANDATORY_DIR}/inc
 INC_FILES = ${INC_DIR}/philo.h
-SRC_DIR = ${MANDATORY_DIR}
-SRC_FILES = ${addprefix  ${SRC_DIR}/, checked_atou.c cleanup.c getters.c handler.c init.c philo.c setters.c time.c utils.c}
+SRC_DIR = ${MANDATORY_DIR}/src
+SRC_FILES = ${addprefix  ${SRC_DIR}/, checker_thread.c cleanup.c ft_atoi.c init.c}
+SRC_FILES += ${addprefix  ${SRC_DIR}/, mutex_ops.c philo_thread.c philo.c time.c utils.c}
 OBJ_DIR = ${MANDATORY_DIR}/obj
 OBJ_FILES = ${addprefix  ${OBJ_DIR}/, ${notdir ${SRC_FILES:.c=.o}}}
 

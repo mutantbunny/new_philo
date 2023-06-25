@@ -6,11 +6,16 @@
 /*   By: gmachado <gmachado@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 05:03:09 by gmachado          #+#    #+#             */
-/*   Updated: 2023/06/25 06:55:24 by gmachado         ###   ########.fr       */
+/*   Updated: 2023/06/25 07:47:38 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static t_bool	eat(t_params *pars, t_philo *philo);
+static t_bool	eat_alone(t_params *pars, t_philo *philo);
+static t_bool	go_sleep(t_params *pars, t_philo *philo);
+static t_bool	think(t_params *pars, t_philo *philo);
 
 void	*philo_handler(void *arg)
 {
@@ -27,7 +32,7 @@ void	*philo_handler(void *arg)
 	return (NULL);
 }
 
-t_bool	eat(t_params *pars, t_philo *philo)
+static t_bool	eat(t_params *pars, t_philo *philo)
 {
 	if (get_dinner_over(pars))
 		return (TRUE);
@@ -43,6 +48,7 @@ t_bool	eat(t_params *pars, t_philo *philo)
 	}
 	print_state(pars, philo->num, ST_GOT_FORK);
 	print_state(pars, philo->num, ST_GOT_FORK);
+	set_last_meal_timestamp(philo);
 	print_state(pars, philo->num, ST_EATING);
 	update_remaining_meals(philo);
 	pthread_mutex_unlock(philo->first_fork);
@@ -50,7 +56,7 @@ t_bool	eat(t_params *pars, t_philo *philo)
 	return (FALSE);
 }
 
-t_bool	go_sleep(t_params *pars, t_philo *philo)
+static t_bool	go_sleep(t_params *pars, t_philo *philo)
 {
 	if (get_dinner_over(pars))
 		return (TRUE);
@@ -59,7 +65,7 @@ t_bool	go_sleep(t_params *pars, t_philo *philo)
 	return (FALSE);
 }
 
-t_bool	think(t_params *pars, t_philo *philo)
+static t_bool	think(t_params *pars, t_philo *philo)
 {
 	if (get_dinner_over(pars))
 		return (TRUE);
@@ -67,7 +73,7 @@ t_bool	think(t_params *pars, t_philo *philo)
 	return (FALSE);
 }
 
-t_bool	eat_alone(t_params *pars, t_philo *philo)
+static t_bool	eat_alone(t_params *pars, t_philo *philo)
 {
 	print_state(pars, philo->num, ST_GOT_FORK);
 	usleep(pars->time_to_die * 2000);

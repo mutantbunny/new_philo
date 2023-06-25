@@ -6,18 +6,21 @@
 /*   By: gmachado <gmachado@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 22:10:33 by gmachado          #+#    #+#             */
-/*   Updated: 2023/06/25 02:53:04 by gmachado         ###   ########.fr       */
+/*   Updated: 2023/06/25 07:40:12 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static int	ft_atoi(const char *nptr);
+static int	ft_isspace(char c);
 
 static int	ft_isspace(char c)
 {
 	return (c == ' ' || (c >= 9 && c <= 13));
 }
 
-int	ft_atoi(const char *nptr)
+static int	ft_atoi(const char *nptr)
 {
 	int	is_negative;
 	int	result;

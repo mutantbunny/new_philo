@@ -6,13 +6,13 @@
 /*   By: gmachado <gmachado@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 23:13:34 by gmachado          #+#    #+#             */
-/*   Updated: 2023/06/25 06:37:06 by gmachado         ###   ########.fr       */
+/*   Updated: 2023/06/25 07:41:10 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static t_error	get_args(t_param *pars, int argc, char **argv)
+t_error	get_args(t_param *pars, int argc, char **argv)
 {
 	if (argc < 5 || argc > 6)
 		return (ERR_PARAMS);

@@ -6,7 +6,7 @@
 /*   By: gmachado <gmachado@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 04:30:44 by gmachado          #+#    #+#             */
-/*   Updated: 2023/06/25 06:24:19 by gmachado         ###   ########.fr       */
+/*   Updated: 2023/06/25 07:26:10 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_fork	*second_fork(t_params *pars, int idx)
 void	print_state(t_params *pars, int idx, t_state state)
 {
 	pthread_mutex_lock(&pars->print_mutex);
-	if (pars->get_sim_over() == FALSE)
+	if (get_dinner_over(pars) == FALSE)
 	{
 		ft_putnbr(timestamp_in_ms() - pars->start_ts);
 		write(1, " ", 1);
