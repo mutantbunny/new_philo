@@ -14,29 +14,33 @@
 
 t_fork	*first_fork(t_philo *philo)
 {
-	int philo_number;
+	int	philo_number;
 
 	philo_number = philo->number;
 	if (philo_number % 2 == 1)
 		return (philo->pars->forks + philo_number);
-	return (philo->pars->forks + ((philo_number + 1) % philo->pars->num_philos));
+	return (philo->pars->forks + ((philo_number + 1)
+			% philo->pars->num_philos));
 }
 
 t_fork	*second_fork(t_philo *philo)
 {
-	int philo_number;
+	int	philo_number;
 
 	if (philo->pars->num_philos == 1)
 		return (NULL);
 	philo_number = philo->number;
 	if (philo_number % 2 == 1)
-		return (philo->pars->forks + ((philo_number + 1) % philo->pars->num_philos));
+	{
+		return (philo->pars->forks + ((philo_number + 1)
+				% philo->pars->num_philos));
+	}
 	return (philo->pars->forks + philo_number);
 }
 
 void	print_state(t_params *pars, int idx, t_state state)
 {
-	long long ts;
+	long long	ts;
 
 	ts = timestamp_in_ms() - pars->start_ts;
 	pthread_mutex_lock(&pars->print_mtx);
@@ -53,4 +57,3 @@ void	print_state(t_params *pars, int idx, t_state state)
 	}
 	pthread_mutex_unlock(&pars->print_mtx);
 }
-

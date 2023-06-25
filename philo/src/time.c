@@ -22,7 +22,7 @@ long long	timestamp_in_ms(void)
 
 void	sleep_in_ms(long long sleep_time)
 {
-	long long start_ts;
+	long long	start_ts;
 
 	start_ts = timestamp_in_ms();
 	while (timestamp_in_ms() - start_ts < sleep_time)

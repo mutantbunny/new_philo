@@ -12,7 +12,8 @@
 
 #include "philo.h"
 
-void set_last_meal_timestamp(t_philo *philo) {
+void	set_last_meal_timestamp(t_philo *philo)
+{
 	t_params	*pars;
 	t_bool		all_finished;
 
@@ -24,11 +25,11 @@ void set_last_meal_timestamp(t_philo *philo) {
 	all_finished = (pars->num_must_eat == 0);
 	pthread_mutex_unlock(&pars->must_eat_mtx);
 	if (philo->remaining_meals < 0)
-		return;
+		return ;
 	if (philo->remaining_meals > 0)
 	{
 		philo->remaining_meals--;
-		return;
+		return ;
 	}
 	if (all_finished)
 		end_dinner(pars);

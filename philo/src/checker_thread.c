@@ -45,7 +45,7 @@ void	*check_death_handler(void *arg)
 
 static void	print_death(t_params *pars, int idx)
 {
-	long long ts;
+	long long	ts;
 
 	ts = timestamp_in_ms() - pars->start_ts;
 	pthread_mutex_lock(&pars->print_mtx);

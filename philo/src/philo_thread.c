@@ -58,7 +58,6 @@ static t_bool	eat(t_params *pars, t_philo *philo)
 	print_state(pars, philo->number, ST_EATING);
 	set_last_meal_timestamp(philo);
 	sleep_in_ms(pars->time_to_eat);
-	// update_remaining_meals(philo);
 	pthread_mutex_unlock(philo->first_fork);
 	pthread_mutex_unlock(philo->second_fork);
 	return (FALSE);
