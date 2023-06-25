@@ -6,7 +6,7 @@
 /*   By: gmachado <gmachado@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 22:10:33 by gmachado          #+#    #+#             */
-/*   Updated: 2023/06/25 07:40:12 by gmachado         ###   ########.fr       */
+/*   Updated: 2023/06/25 07:57:03 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	ft_atoi(const char *nptr)
 
 t_error	checked_atoi(const char *nptr, int *result)
 {
-	char *ptr;
+	char	*ptr;
 
 	if (nptr == NULL)
 		return (ERR_PARAMS);

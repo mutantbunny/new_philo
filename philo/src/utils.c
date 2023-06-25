@@ -6,7 +6,7 @@
 /*   By: gmachado <gmachado@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 04:30:44 by gmachado          #+#    #+#             */
-/*   Updated: 2023/06/25 07:26:10 by gmachado         ###   ########.fr       */
+/*   Updated: 2023/06/25 07:56:50 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,3 @@ void	print_state(t_params *pars, int idx, t_state state)
 	}
 	pthread_mutex_unlock(&pars->print_mutex);
 }
-

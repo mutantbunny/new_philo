@@ -6,7 +6,7 @@
 /*   By: gmachado <gmachado@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 23:13:34 by gmachado          #+#    #+#             */
-/*   Updated: 2023/06/25 07:41:10 by gmachado         ###   ########.fr       */
+/*   Updated: 2023/06/25 07:55:33 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_error	get_args(t_param *pars, int argc, char **argv)
 
 t_error	init_parameters(t_param *pars)
 {
-	t_error err;
+	t_error	err;
 
 	pars->forks = NULL;
 	pars->philos = NULL;
