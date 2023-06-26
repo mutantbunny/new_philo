@@ -6,7 +6,7 @@
 /*   By: gmachado <gmachado@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 23:13:34 by gmachado          #+#    #+#             */
-/*   Updated: 2023/06/25 09:15:53 by gmachado         ###   ########.fr       */
+/*   Updated: 2023/06/26 03:16:01 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_error	init_philos(t_params *pars)
 		philo->pars = pars;
 		philo->first_fork = first_fork(philo);
 		philo->second_fork = second_fork(philo);
-		philo->remaining_meals = pars->num_meals - 1;
+		philo->remaining_meals = pars->num_meals;
 		set_last_meal_timestamp(philo);
 		++idx;
 	}

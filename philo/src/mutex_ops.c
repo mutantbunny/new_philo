@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mutex_ops.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gmachado <gmachado@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 04:30:27 by gmachado          #+#    #+#             */
-/*   Updated: 2023/06/25 17:23:10 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/06/26 03:15:09 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@ void	set_last_meal_timestamp(t_philo *philo)
 	pars = philo->pars;
 	pthread_mutex_lock(&pars->must_eat_mtx);
 	philo->last_meal_ts = timestamp_in_ms();
-	if (pars->num_must_eat)
+	if (philo->remaining_meals < 0)
+	{
+		pthread_mutex_unlock(&pars->must_eat_mtx);
+		return ;
+	}
+	if (philo->remaining_meals > 0)
+		philo->remaining_meals--;
+	else if (philo->remaining_meals == 0 && pars->num_must_eat > 0)
 		pars->num_must_eat--;
 	all_finished = (pars->num_must_eat == 0);
 	pthread_mutex_unlock(&pars->must_eat_mtx);
-	if (philo->remaining_meals < 0)
-		return ;
-	if (philo->remaining_meals > 0)
-	{
-		philo->remaining_meals--;
-		return ;
-	}
 	if (all_finished)
 		end_dinner(pars);
 }
