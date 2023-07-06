@@ -6,7 +6,7 @@
 /*   By: gmachado <gmachado@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 22:12:16 by gmachado          #+#    #+#             */
-/*   Updated: 2023/06/25 08:19:47 by gmachado         ###   ########.fr       */
+/*   Updated: 2023/07/04 06:57:32 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,18 @@ static t_error	print_usage_msg(char *name)
 static t_error	init_threads(t_params *pars)
 {
 	int	idx;
+	int	num_philos;
+	t_philo	*philos;
 
-	idx = 0;
+	idx = -1;
+	philos = pars->philos;
+	num_philos = pars->num_philos;
 	pars->start_ts = timestamp_in_ms();
-	while (idx < pars->num_philos)
+	while (++idx < num_philos)
 	{
-		if (pthread_create(&(pars->philos + idx)->thread, NULL,
-				philo_handler, pars->philos + idx))
+		if (pthread_create(&(philos[idx].thread), NULL,
+				philo_handler, philos + idx))
 			return (ERR_THREAD);
-		++idx;
 	}
 	if (pthread_create(&pars->check_death_thread, NULL,
 			check_death_handler, pars))

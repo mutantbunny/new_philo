@@ -6,7 +6,7 @@
 /*   By: gmachado <gmachado@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 04:30:27 by gmachado          #+#    #+#             */
-/*   Updated: 2023/06/26 03:15:09 by gmachado         ###   ########.fr       */
+/*   Updated: 2023/07/06 06:54:35 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,25 @@
 void	set_last_meal_timestamp(t_philo *philo)
 {
 	t_params	*pars;
-	t_bool		all_finished;
+	t_bool		ate_enough;
 
 	pars = philo->pars;
-	pthread_mutex_lock(&pars->must_eat_mtx);
+	pthread_mutex_lock(&philo->meal_mtx);
 	philo->last_meal_ts = timestamp_in_ms();
-	if (philo->remaining_meals < 0)
+	if (pars->num_meals < 0)
 	{
-		pthread_mutex_unlock(&pars->must_eat_mtx);
+		pthread_mutex_unlock(&philo->meal_mtx);
 		return ;
 	}
-	if (philo->remaining_meals > 0)
-		philo->remaining_meals--;
-	else if (philo->remaining_meals == 0 && pars->num_must_eat > 0)
-		pars->num_must_eat--;
-	all_finished = (pars->num_must_eat == 0);
-	pthread_mutex_unlock(&pars->must_eat_mtx);
-	if (all_finished)
-		end_dinner(pars);
+	ate_enough = (--(philo->remaining_meals) < 0);
+	pthread_mutex_unlock(&philo->meal_mtx);
+	if (ate_enough)
+	{
+		pthread_mutex_lock(&pars->must_eat_mtx);
+	 	if (--(pars->num_must_eat) < 0)
+			end_dinner(pars);
+		pthread_mutex_unlock(&pars->must_eat_mtx);
+	}
 }
 
 void	end_dinner(t_params *pars)
@@ -56,8 +57,8 @@ long long	get_last_meal_timestamp(t_philo *philo)
 {
 	long long	result;
 
-	pthread_mutex_lock(&philo->pars->must_eat_mtx);
+	pthread_mutex_lock(&philo->meal_mtx);
 	result = philo->last_meal_ts;
-	pthread_mutex_unlock(&philo->pars->must_eat_mtx);
+	pthread_mutex_unlock(&philo->meal_mtx);
 	return (result);
 }

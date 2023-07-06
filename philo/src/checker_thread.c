@@ -6,7 +6,7 @@
 /*   By: gmachado <gmachado@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 05:04:13 by gmachado          #+#    #+#             */
-/*   Updated: 2023/06/25 20:35:31 by gmachado         ###   ########.fr       */
+/*   Updated: 2023/07/04 06:18:24 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	*check_death_handler(void *arg)
 				return (NULL);
 			}
 			++idx;
-			sleep_in_ms(1);
+			sleep_in_ms(5);
 		}
 	}
 	return (NULL);

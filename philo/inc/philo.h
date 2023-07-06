@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gmachado <gmachado@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 21:50:38 by gmachado          #+#    #+#             */
-/*   Updated: 2023/06/25 16:36:31 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/07/06 06:28:43 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ struct s_philo
 	t_fork			*second_fork;
 	t_params		*pars;
 	pthread_t		thread;
+	pthread_mutex_t	meal_mtx;
 };
 
 // checker_thread.c

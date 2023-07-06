@@ -6,7 +6,7 @@
 /*   By: gmachado <gmachado@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 23:13:34 by gmachado          #+#    #+#             */
-/*   Updated: 2023/06/26 03:16:01 by gmachado         ###   ########.fr       */
+/*   Updated: 2023/07/06 06:56:04 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,17 @@ t_error	init_philos(t_params *pars)
 	int		idx;
 	t_philo	*philo;
 
+
 	pars->philos = malloc(pars->num_philos * sizeof(*(pars->philos)));
 	if (pars->philos == NULL)
 		return (ERR_ALLOC);
+
 	idx = 0;
 	while (idx < pars->num_philos)
 	{
 		philo = pars->philos + idx;
+		if (pthread_mutex_init(&philo->meal_mtx, NULL))
+			return (ERR_MUTEX);
 		philo->number = idx;
 		philo->pars = pars;
 		philo->first_fork = first_fork(philo);

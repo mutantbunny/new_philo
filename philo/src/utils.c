@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gmachado <gmachado@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 04:30:44 by gmachado          #+#    #+#             */
-/*   Updated: 2023/06/25 17:21:16 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/07/04 06:50:06 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_fork	*first_fork(t_philo *philo)
 	int	philo_number;
 
 	philo_number = philo->number;
-	if (philo_number % 2 == 1)
+	if (philo_number % 2 == 0)
 		return (philo->pars->forks + philo_number);
 	return (philo->pars->forks + ((philo_number + 1)
 			% philo->pars->num_philos));
@@ -30,7 +30,7 @@ t_fork	*second_fork(t_philo *philo)
 	if (philo->pars->num_philos == 1)
 		return (NULL);
 	philo_number = philo->number;
-	if (philo_number % 2 == 1)
+	if (philo_number % 2 == 0)
 	{
 		return (philo->pars->forks + ((philo_number + 1)
 				% philo->pars->num_philos));
