@@ -77,6 +77,7 @@ static t_bool	think(t_params *pars, t_philo *philo)
 	if (get_dinner_over(pars))
 		return (TRUE);
 	print_state(pars, philo->number, ST_THINKING);
+	sleep_in_ms(THINK_TIME);
 	return (FALSE);
 }
 

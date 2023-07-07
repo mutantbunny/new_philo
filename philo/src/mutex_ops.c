@@ -15,22 +15,20 @@
 void	set_last_meal_timestamp(t_philo *philo)
 {
 	t_params	*pars;
-	t_bool		ate_enough;
 
 	pars = philo->pars;
 	pthread_mutex_lock(&philo->meal_mtx);
 	philo->last_meal_ts = timestamp_in_ms();
-	if (pars->num_meals < 0)
-	{
-		pthread_mutex_unlock(&philo->meal_mtx);
-		return ;
-	}
-	ate_enough = (--(philo->remaining_meals) < 0);
 	pthread_mutex_unlock(&philo->meal_mtx);
-	if (ate_enough)
+	if (philo->remaining_meals < 0)
+		return ;
+	if (philo->remaining_meals > 0)
+		--(philo->remaining_meals);
+	else
 	{
 		pthread_mutex_lock(&pars->must_eat_mtx);
-	 	if (--(pars->num_must_eat) < 0)
+		--(pars->num_must_eat);
+		if (pars->num_must_eat < 0)
 			end_dinner(pars);
 		pthread_mutex_unlock(&pars->must_eat_mtx);
 	}

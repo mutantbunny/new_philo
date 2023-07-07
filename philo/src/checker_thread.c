@@ -37,7 +37,7 @@ void	*check_death_handler(void *arg)
 				return (NULL);
 			}
 			++idx;
-			sleep_in_ms(5);
+			sleep_in_ms(CHECK_WAIT_TIME);
 		}
 	}
 	return (NULL);

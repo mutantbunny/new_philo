@@ -32,6 +32,7 @@ t_error	handle_error(t_params *pars, t_error err)
 t_error	cleanup(t_params *pars)
 {
 	int	i;
+
 	i = 0;
 	while (i < pars->num_philos)
 		pthread_mutex_destroy(&(pars->philos + i++)->meal_mtx);

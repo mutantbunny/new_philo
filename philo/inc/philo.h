@@ -22,7 +22,8 @@
 # include <bits/pthreadtypes.h>
 
 # define SLEEP_TIME_STEP 100
-# define CHECK_WAIT_TIME 1
+# define CHECK_WAIT_TIME 2
+# define THINK_TIME 1
 
 typedef pthread_mutex_t	t_fork;
 typedef struct s_params	t_params;

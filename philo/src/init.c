@@ -67,11 +67,9 @@ t_error	init_philos(t_params *pars)
 	int		idx;
 	t_philo	*philo;
 
-
 	pars->philos = malloc(pars->num_philos * sizeof(*(pars->philos)));
 	if (pars->philos == NULL)
 		return (ERR_ALLOC);
-
 	idx = 0;
 	while (idx < pars->num_philos)
 	{
